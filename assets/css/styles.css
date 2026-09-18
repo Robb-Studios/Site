@@ -80,12 +80,12 @@ h3 { margin-bottom: .7rem; font-size: clamp(1.45rem, 2.3vw, 2.15rem); }
 .feature-list li::before { content: "↗"; color: var(--orange); font-weight: 950; }
 
 .device-stage { position: relative; min-height: 690px; perspective: 1600px; transform-style: preserve-3d; }
-.device { position: absolute; width: min(50%, 294px); padding: 11px; background: #070b12; border: 2px solid #657184; border-radius: 48px; box-shadow: 0 35px 70px rgba(0,0,0,.48), 14px 16px 0 #02050a; transform-style: preserve-3d; }
-.device::before { content: ""; position: absolute; z-index: 3; top: 17px; left: 50%; width: 34%; height: 24px; transform: translateX(-50%); background: #070b12; border-radius: 0 0 15px 15px; }
-.device::after { content: ""; position: absolute; top: 75px; right: -6px; width: 5px; height: 90px; background: #7a8492; border-radius: 0 3px 3px 0; }
+.device { position: absolute; width: min(50%, 294px); padding: 11px; background: #070b12; border: 2px solid #657184; border-radius: 48px; box-shadow: 0 35px 70px rgba(0,0,0,.48); transform-style: preserve-3d; }
 .device img { width: 100%; height: auto; aspect-ratio: 590 / 1280; object-fit: cover; border-radius: 37px; background: #f8f7ff; }
-.spingrade-devices .device:first-child { left: 6%; top: 8%; transform: rotateY(20deg) rotateX(3deg) rotateZ(-8deg); }
-.spingrade-devices .device:last-child { right: 2%; bottom: 2%; transform: rotateY(-18deg) rotateX(2deg) rotateZ(8deg); }
+.spingrade-devices { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); align-items: center; gap: clamp(48px,7vw,84px); min-height: auto; padding: 38px 8px; }
+.spingrade-devices .device { position: relative; width: 100%; max-width: 294px; }
+.spingrade-devices .device:first-child { justify-self: end; transform: rotateY(10deg) rotateX(2deg) rotateZ(-3deg); }
+.spingrade-devices .device:last-child { justify-self: start; transform: rotateY(-10deg) rotateX(2deg) rotateZ(3deg); }
 .spingrade-devices::after { content: "SPINGRADE"; position: absolute; left: 0; bottom: 44px; z-index: -1; color: rgba(255,255,255,.045); font-size: clamp(4rem,9vw,8rem); font-weight: 950; letter-spacing: -.06em; transform: rotate(-90deg) translateX(-10%); transform-origin: left bottom; }
 .single-device { display: grid; place-items: center; }
 .single-device .device { position: relative; width: min(70%, 360px); transform: rotateY(-19deg) rotateX(3deg) rotateZ(5deg); }
@@ -166,7 +166,10 @@ h3 { margin-bottom: .7rem; font-size: clamp(1.45rem, 2.3vw, 2.15rem); }
   .device-stage { min-height: 550px; }
   .device { width: min(54%,230px); padding: 8px; border-radius: 38px; }
   .device img { border-radius: 29px; }
-  .device::before { height: 18px; }
+  .spingrade-devices { min-height: auto; gap: 32px; padding: 30px 0; }
+  .spingrade-devices .device { width: 100%; }
+  .spingrade-devices .device:first-child { transform: rotateY(8deg) rotateX(1deg) rotateZ(-2deg); }
+  .spingrade-devices .device:last-child { transform: rotateY(-8deg) rotateX(1deg) rotateZ(2deg); }
   .single-device .device { width: min(68%,280px); }
   .game-feature + .game-feature { margin-top: 105px; }
   .footer-grid { grid-template-columns: 1fr; }

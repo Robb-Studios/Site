@@ -1,5 +1,1 @@
-# Robb Studios — arquivo preparado para verificação do Google AdMob.
-# Antes de publicar o primeiro aplicativo, copie do painel do AdMob a linha
-# com seu publisher ID e cole abaixo sem o caractere #.
-# Formato esperado:
-# google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
+google.com, pub-2991797177107370, DIRECT, f08c47fec0942fa0

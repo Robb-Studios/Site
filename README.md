@@ -24,10 +24,8 @@ Depois de conectar o domínio, use:
 
 1. Crie a conta no Google AdMob e conclua a verificação de identidade e pagamentos.
 2. Cadastre o aplicativo com o mesmo identificador de pacote usado na App Store/Google Play.
-3. No painel do AdMob, copie a linha personalizada de `app-ads.txt`.
-4. Edite `app-ads.txt`, removendo o exemplo comentado e colando a linha real, semelhante a:
-
-   `google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0`
+3. O `app-ads.txt` já contém o publisher ID oficial da Robb Studios.
+4. Confirme no AdMob que `https://robbstudios.com/app-ads.txt` foi localizado e verificado.
 
 5. Publique o site em domínio próprio. O arquivo precisa responder diretamente na raiz do host.
 6. Cadastre esse mesmo domínio como website do desenvolvedor nas lojas.

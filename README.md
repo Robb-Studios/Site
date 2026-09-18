@@ -4,9 +4,11 @@ Site estático oficial da Robb Studios, com apresentação do estúdio, páginas
 
 ## Publicação no GitHub Pages
 
+O site está diretamente na raiz do repositório, sem build ou dependências.
+
 1. No repositório, abra **Settings → Pages**.
-2. Em **Build and deployment**, selecione **GitHub Actions**.
-3. Faça push na branch `main`. O workflow `.github/workflows/pages.yml` publica a pasta `dist`.
+2. Em **Build and deployment**, selecione **Deploy from a branch**.
+3. Selecione a branch `main`, a pasta `/(root)` e clique em **Save**.
 4. Se usar domínio próprio, configure-o no GitHub Pages e no seu provedor de DNS.
 
 ## URLs para as lojas
@@ -23,7 +25,7 @@ Depois de conectar o domínio, use:
 1. Crie a conta no Google AdMob e conclua a verificação de identidade e pagamentos.
 2. Cadastre o aplicativo com o mesmo identificador de pacote usado na App Store/Google Play.
 3. No painel do AdMob, copie a linha personalizada de `app-ads.txt`.
-4. Edite `dist/app-ads.txt`, removendo o exemplo comentado e colando a linha real, semelhante a:
+4. Edite `app-ads.txt`, removendo o exemplo comentado e colando a linha real, semelhante a:
 
    `google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0`
 
@@ -44,10 +46,10 @@ Depois de conectar o domínio, use:
 
 ## Desenvolvimento local
 
-O projeto não tem dependências. Sirva a pasta `dist` com qualquer servidor HTTP estático:
+O projeto não tem dependências. Sirva a raiz com qualquer servidor HTTP estático:
 
 ```bash
-python3 -m http.server 4173 --directory dist
+python3 -m http.server 4173
 ```
 
 Abra `http://localhost:4173`.

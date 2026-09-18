@@ -1,0 +1,10 @@
+{
+  "name": "Robb Studios",
+  "short_name": "Robb Studios",
+  "description": "Jogos mobile com personalidade.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f7f2e8",
+  "theme_color": "#07111f",
+  "icons": [{ "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}

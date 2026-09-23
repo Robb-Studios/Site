@@ -3,8 +3,14 @@ const menu = document.querySelector('[data-menu]');
 const supportedLanguages = ['pt', 'en', 'fr', 'es', 'zh', 'ja'];
 const languageNames = { pt: 'Português', en: 'English', fr: 'Français', es: 'Español', zh: '简体中文', ja: '日本語' };
 const cacheTtl = 2 * 60 * 60 * 1000;
-const savedLanguage = window.localStorage.getItem('robb-studios-language');
-const initialLanguage = supportedLanguages.includes(savedLanguage) ? savedLanguage : 'pt';
+const resourceVersion = '20260923-complete';
+const storage = {
+  get(key) { try { return localStorage.getItem(key); } catch { return null; } },
+  set(key, value) { try { localStorage.setItem(key, value); } catch {} }
+};
+const savedLanguage = storage.get('robb-studios-language');
+const initialLanguage = supportedLanguages.includes(savedLanguage) ? savedLanguage : 'en';
+let activeTranslations = {};
 const languageSwitchers = document.querySelectorAll('.language-switcher');
 const languageOptions = supportedLanguages.map((language) => `
   <button type="button" class="language-option" data-language-option="${language}" role="option">
@@ -20,7 +26,7 @@ function updateLanguageButtons(language) {
     if (!button || !flag || !code) return;
     flag.className = `flag flag-${language}`;
     code.textContent = language.toUpperCase();
-    button.setAttribute('aria-label', `Idioma: ${languageNames[language]}`);
+    button.setAttribute('aria-label', `${activeTranslations.Language || 'Language'}: ${languageNames[language]}`);
     switcher.querySelectorAll('[data-language-option]').forEach((option) => {
       option.setAttribute('aria-selected', String(option.dataset.languageOption === language));
     });
@@ -58,7 +64,7 @@ languageSwitchers.forEach((switcher) => {
     option.addEventListener('click', () => {
       const language = String(option.dataset.languageOption || '').trim();
       if (!supportedLanguages.includes(language)) return;
-      window.localStorage.setItem('robb-studios-language', language);
+      storage.set('robb-studios-language', language);
       window.location.reload();
     });
   });
@@ -70,51 +76,55 @@ document.addEventListener('click', (event) => {
 });
 
 async function loadTranslations(language) {
-  const cacheKey = `robb-studios-i18n-${language}-v1`;
-  const cached = window.localStorage.getItem(cacheKey);
+  const cacheKey = `robb-studios-i18n-${language}-${resourceVersion}`;
+  const cached = storage.get(cacheKey);
   if (cached) {
     try {
       const entry = JSON.parse(cached);
-      if (Date.now() - entry.cachedAt < cacheTtl) return entry.data;
-    } catch { window.localStorage.removeItem(cacheKey); }
+      if (entry.data && Date.now() >= entry.cachedAt && Date.now() - entry.cachedAt < cacheTtl) return entry.data;
+    } catch {}
   }
-  const response = await fetch(`/assets/i18n/${language}.json`, {
+  const response = await fetch(`/assets/i18n/${language}.json?v=${resourceVersion}`, {
     cache: 'default',
     headers: { 'Cache-Control': 'max-age=7200' }
   });
   if (!response.ok) throw new Error(`Translation resource failed: ${response.status}`);
   const data = await response.json();
-  window.localStorage.setItem(cacheKey, JSON.stringify({ cachedAt: Date.now(), data }));
+  storage.set(cacheKey, JSON.stringify({ cachedAt: Date.now(), data }));
   return data;
 }
 
 function translateVisibleText(translations) {
-  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+  const walker = document.createTreeWalker(document.documentElement, NodeFilter.SHOW_TEXT);
   const nodes = [];
   while (walker.nextNode()) nodes.push(walker.currentNode);
   nodes.forEach((node) => {
+    if (node.parentElement.closest('script, style, .language-switcher')) return;
     const key = node.nodeValue.trim();
     if (!key || !translations[key]) return;
     node.nodeValue = node.nodeValue.replace(key, translations[key]);
   });
-  document.querySelectorAll('[aria-label]').forEach((node) => {
-    const label = node.getAttribute('aria-label');
-    if (translations[label]) node.setAttribute('aria-label', translations[label]);
+  document.querySelectorAll('[aria-label], [alt], meta[name="description"], meta[property^="og:"]').forEach((node) => {
+    for (const attr of ['aria-label', 'alt', 'content']) {
+      const label = node.getAttribute(attr);
+      if (translations[label]) node.setAttribute(attr, translations[label]);
+    }
   });
-  if (translations.__titleByPage?.[document.title]) document.title = translations.__titleByPage[document.title];
 }
 
 async function applyLanguage(language) {
-  document.documentElement.lang = language === 'pt' ? 'pt-BR' : language;
   try {
     const translations = await loadTranslations(language);
+    activeTranslations = translations;
     translateVisibleText(translations);
+    document.documentElement.lang = language === 'pt' ? 'pt-BR' : language;
+    updateLanguageButtons(language);
   } catch (error) {
     console.error(error);
-    if (language !== 'pt') {
-      const fallback = await loadTranslations('pt');
-      translateVisibleText(fallback);
-    }
+    document.documentElement.lang = 'en';
+    updateLanguageButtons('en');
+  } finally {
+    document.documentElement.dataset.i18nReady = 'true';
   }
 }
 
@@ -124,13 +134,13 @@ if (menuButton && menu) {
   menuButton.addEventListener('click', () => {
     const isOpen = menu.classList.toggle('open');
     menuButton.setAttribute('aria-expanded', String(isOpen));
-    menuButton.textContent = isOpen ? (initialLanguage === 'pt' ? 'Fechar' : 'Close') : (initialLanguage === 'pt' ? 'Menu' : 'Menu');
+    menuButton.textContent = isOpen ? (activeTranslations.Close || 'Close') : (activeTranslations.Menu || 'Menu');
   });
   menu.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', () => {
       menu.classList.remove('open');
       menuButton.setAttribute('aria-expanded', 'false');
-      menuButton.textContent = 'Menu';
+      menuButton.textContent = activeTranslations.Menu || 'Menu';
     });
   });
 }

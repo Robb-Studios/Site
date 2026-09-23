@@ -16,7 +16,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 .site-header { position: sticky; top: 0; z-index: 50; background: var(--orange); color: var(--night); border-bottom: 4px solid var(--night); }
 .nav { min-height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
-.brand { display: inline-flex; align-items: center; gap: .72rem; color: var(--cream); text-decoration: none; font-family: "Arial Black", Impact, sans-serif; font-weight: 900; letter-spacing: -.055em; font-size: 1.24rem; text-shadow: 2px 2px 0 var(--night), 4px 4px 0 var(--blue); }
+.brand { display: inline-flex; align-items: center; gap: .72rem; color: var(--cream); text-decoration: none; font-size: 0; }
+.brand::after { content: ""; display: block; width: 156px; height: 50px; background: url("../images/robb-studios-wordmark.svg") center / contain no-repeat; }
 .brand-mark { display: grid; place-items: center; width: 42px; aspect-ratio: 1; border-radius: 10px; color: var(--cream); background-color: var(--night); background-image: url("../images/robb-studios.jpg"); background-repeat: no-repeat; background-size: 210%; background-position: 50% 9%; border: 2px solid var(--night); box-shadow: 4px 4px 0 var(--blue); font-size: 0; }
 .nav-links { display: flex; align-items: center; gap: 2rem; }
 .nav-links a { color: var(--night); text-decoration: none; font-weight: 800; font-size: .92rem; }

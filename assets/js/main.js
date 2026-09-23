@@ -132,7 +132,7 @@ languageSwitchers.forEach((switcher) => {
   const oldSelect = switcher.querySelector('[data-language-select]');
   if (oldSelect) oldSelect.remove();
   const nav = switcher.closest('.nav');
-  if (nav) nav.appendChild(switcher);
+  if (nav && menuButton) nav.insertBefore(switcher, menuButton);
   switcher.insertAdjacentHTML('afterbegin', `
     <button type="button" class="language-button" data-language-button aria-expanded="false" aria-haspopup="listbox">
       <span class="flag flag-${initialLanguage}" aria-hidden="true"></span><span class="language-code">${initialLanguage.toUpperCase()}</span><span class="language-chevron" aria-hidden="true">⌄</span>
@@ -149,7 +149,8 @@ languageSwitchers.forEach((switcher) => {
   });
   switcher.querySelectorAll('[data-language-option]').forEach((option) => {
     option.addEventListener('click', () => {
-      const language = option.dataset.languageOption;
+      const language = String(option.dataset.languageOption || '').trim();
+      if (!supportedLanguages.includes(language)) return;
       window.localStorage.setItem('robb-studios-language', language);
       window.location.reload();
     });

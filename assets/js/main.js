@@ -5,8 +5,8 @@ const supportedLanguages = ['pt', 'en', 'fr', 'es', 'zh', 'ja'];
 const languageNames = { pt: 'Português', en: 'English', fr: 'Français', es: 'Español', zh: '简体中文', ja: '日本語' };
 
 const translations = {};
-const addTranslation = (key, pt, en, fr, es, zh, ja) => {
-  translations[key] = { pt, en, fr, es, zh, ja };
+const addTranslation = (key, en, fr, es, zh, ja) => {
+  translations[key] = { pt: key, en, fr, es, zh, ja };
 };
 
 [

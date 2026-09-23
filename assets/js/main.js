@@ -1,6 +1,22 @@
 const menuButton = document.querySelector('[data-menu-button]');
 const menu = document.querySelector('[data-menu]');
 
+const languageSelects = document.querySelectorAll('[data-language-select]');
+const supportedLanguages = ['pt', 'en', 'fr', 'es', 'zh', 'ja'];
+const savedLanguage = window.localStorage.getItem('robb-studios-language');
+const initialLanguage = supportedLanguages.includes(savedLanguage) ? savedLanguage : 'pt';
+
+languageSelects.forEach((select) => {
+  select.value = initialLanguage;
+  select.addEventListener('change', () => {
+    const language = select.value;
+    if (!supportedLanguages.includes(language)) return;
+    window.localStorage.setItem('robb-studios-language', language);
+    languageSelects.forEach((otherSelect) => { otherSelect.value = language; });
+    document.documentElement.lang = language === 'pt' ? 'pt-BR' : language;
+  });
+});
+
 if (menuButton && menu) {
   menuButton.addEventListener('click', () => {
     const isOpen = menu.classList.toggle('open');

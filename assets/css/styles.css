@@ -17,7 +17,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .site-header { position: sticky; top: 0; z-index: 50; background: var(--orange); color: var(--night); border-bottom: 4px solid var(--night); }
 .nav { min-height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
 .brand { display: inline-flex; align-items: center; gap: .72rem; color: var(--cream); text-decoration: none; font-size: 0; }
-.brand::after { content: ""; display: block; width: 156px; height: 50px; background: url("../images/robb-studios-wordmark.svg") center / contain no-repeat; }
+.brand::after { content: ""; display: block; width: 156px; height: 50px; background: url("../images/robb-studios-wordmark.png") center / contain no-repeat; }
 .brand-mark { display: grid; place-items: center; width: 42px; aspect-ratio: 1; border-radius: 10px; color: var(--cream); background-color: var(--night); background-image: url("../images/robb-studios.jpg"); background-repeat: no-repeat; background-size: 210%; background-position: 50% 9%; border: 2px solid var(--night); box-shadow: 4px 4px 0 var(--blue); font-size: 0; }
 .nav-links { display: flex; align-items: center; gap: 2rem; }
 .nav-links a { color: var(--night); text-decoration: none; font-weight: 800; font-size: .92rem; }
@@ -33,7 +33,9 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .language-option { display: flex; align-items: center; gap: .65rem; width: 100%; padding: .65rem .7rem; color: var(--night); background: transparent; border: 0; border-radius: 5px; font: inherit; font-size: .9rem; font-weight: 800; text-align: left; cursor: pointer; }
 .language-option:hover, .language-option:focus-visible, .language-option[aria-selected="true"] { background: var(--orange); outline: none; }
 .flag { display: inline-block; width: 1.45rem; height: 1rem; flex: none; overflow: hidden; border: 1px solid rgba(11,17,27,.35); border-radius: 2px; box-shadow: 0 1px 1px rgba(0,0,0,.18); }
-.flag-pt { background: linear-gradient(90deg, #046a38 0 39%, #f7d117 39% 47%, #da291c 47%); }
+.flag-pt { position: relative; background: #009c3b; }
+.flag-pt::before { content: ""; position: absolute; inset: .12rem .28rem; background: #ffdf00; transform: rotate(45deg) scale(.68); }
+.flag-pt::after { content: ""; position: absolute; inset: .28rem .54rem; background: #002776; border-radius: 50%; }
 .flag-en { background: repeating-linear-gradient(0deg, #b22234 0 7.7%, #fff 7.7% 15.4%); position: relative; }
 .flag-en::before { content: ""; position: absolute; inset: 0 52% 54% 0; background: #3c3b6e; }
 .flag-fr { background: linear-gradient(90deg, #0055a4 0 33.33%, #fff 33.33% 66.66%, #ef4135 66.66%); }

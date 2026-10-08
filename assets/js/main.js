@@ -3,7 +3,7 @@ const menu = document.querySelector('[data-menu]');
 const supportedLanguages = ['pt', 'en', 'fr', 'es', 'zh', 'ja'];
 const languageNames = { pt: 'Português', en: 'English', fr: 'Français', es: 'Español', zh: '简体中文', ja: '日本語' };
 const cacheTtl = 2 * 60 * 60 * 1000;
-const resourceVersion = '20261008-spingrade';
+const resourceVersion = '20261008-gallery';
 const storage = {
   get(key) { try { return localStorage.getItem(key); } catch { return null; } },
   set(key, value) { try { localStorage.setItem(key, value); } catch {} }

@@ -120,6 +120,11 @@ h3 { margin-bottom: .7rem; font-size: clamp(1.45rem, 2.3vw, 2.15rem); }
 .app-screenshots figure:nth-child(even) { transform: rotateY(-8deg) translateY(-18px); }
 .app-screenshots figure:nth-child(3n) { transform: rotateY(5deg) translateY(6px); }
 .app-screenshots img { display: block; width: 100%; height: auto; aspect-ratio: 591 / 1280; object-fit: cover; border-radius: 28px; box-shadow: 0 34px 66px rgba(0,0,0,.42); }
+.ipad-screenshots { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: clamp(24px,3vw,42px); padding: 80px 0 20px; perspective: 1800px; }
+.ipad-screenshots figure { margin: 0; transform: rotateX(2deg) rotateY(4deg); }
+.ipad-screenshots figure:nth-child(even) { transform: rotateX(2deg) rotateY(-4deg); }
+.ipad-screenshots figure:last-child { grid-column: 1 / -1; width: min(72%,920px); justify-self: center; transform: rotateX(2deg); }
+.ipad-screenshots img { display: block; width: 100%; height: auto; aspect-ratio: 2126 / 1477; object-fit: cover; border: 1px solid rgba(167,149,255,.28); border-radius: 24px; box-shadow: 0 34px 66px rgba(0,0,0,.36); }
 
 .principles { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; margin-top: 4rem; background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.14); }
 .principle { min-height: 300px; padding: 2.4rem; background: var(--night-2); }
@@ -208,6 +213,9 @@ h3 { margin-bottom: .7rem; font-size: clamp(1.45rem, 2.3vw, 2.15rem); }
   .app-screenshots figure,.app-screenshots figure:nth-child(even),.app-screenshots figure:nth-child(3n) { flex: 0 0 min(74vw,300px); transform: rotateY(4deg); scroll-snap-align: center; }
   .app-screenshots figure:nth-child(even) { transform: rotateY(-4deg); }
   .app-screenshots img { border-radius: 22px; }
+  .ipad-screenshots { display: flex; gap: 22px; margin-inline: -15px; padding: 54px 15px 28px; overflow-x: auto; scroll-snap-type: x mandatory; }
+  .ipad-screenshots figure,.ipad-screenshots figure:nth-child(even),.ipad-screenshots figure:last-child { flex: 0 0 min(88vw,680px); width: auto; transform: none; scroll-snap-align: center; }
+  .ipad-screenshots img { border-radius: 18px; }
   .game-feature + .game-feature { margin-top: 105px; }
   .footer-grid { grid-template-columns: 1fr; }
   .footer-bottom { flex-direction: column; }
